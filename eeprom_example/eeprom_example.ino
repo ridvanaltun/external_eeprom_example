@@ -18,9 +18,9 @@ void loop(){}
 void writeEEPROM(int deviceaddress, unsigned int eeaddress, byte data ) 
 {
   Wire.beginTransmission(deviceaddress);
-  Wire.send((int)(eeaddress >> 8));   // MSB
-  Wire.send((int)(eeaddress & 0xFF)); // LSB
-  Wire.send(data);
+  Wire.write((int)(eeaddress >> 8));   // MSB
+  Wire.write((int)(eeaddress & 0xFF)); // LSB
+  Wire.write(data);
   Wire.endTransmission();
  
   delay(5);
@@ -31,13 +31,13 @@ byte readEEPROM(int deviceaddress, unsigned int eeaddress )
   byte rdata = 0xFF;
  
   Wire.beginTransmission(deviceaddress);
-  Wire.send((int)(eeaddress >> 8));   // MSB
-  Wire.send((int)(eeaddress & 0xFF)); // LSB
+  Wire.write((int)(eeaddress >> 8));   // MSB
+  Wire.write((int)(eeaddress & 0xFF)); // LSB
   Wire.endTransmission();
  
   Wire.requestFrom(deviceaddress,1);
  
-  if (Wire.available()) rdata = Wire.receive();
+  if (Wire.available()) rdata = Wire.read();
  
   return rdata;
 }
